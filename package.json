@@ -1,0 +1,35 @@
+{
+  "name": "createform-js",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^8.0.1"
+  },
+  "description": "A lightweight JavaScript module to dynamically generate and validate forms, including text, email, and phone inputs with prefixes.",
+  "main": "createForm.js",
+  "module": "createForm.js",
+  "files": [
+    "createForm.js",
+    "style.css",
+    "LICENSE"
+  ],
+  "keywords": [
+    "form",
+    "javascript",
+    "validation",
+    "dynamic-form",
+    "phone-input"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aysel0401/createform-js.git"
+  },
+  "author": "aysel0401@gmail.com",
+  "license": "MIT"
+}
