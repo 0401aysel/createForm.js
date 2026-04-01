@@ -20,7 +20,7 @@ Usage
 
 For example, in main.js:
 
-import CreateForm from './createForm.js';
+import CreateForm from 'createForm-js';
 
 (async () => {
   try {
@@ -59,13 +59,14 @@ import CreateForm from './createForm.js';
 ```
 
 ## Features
+
 Dynamic form generation
 Phone input with selectable prefix
 Email and text validation
 Returns a Promise with form data on successful submission
 
 ## Notes
+
 You can customize the fields array to add more inputs.
 Ensure the container ID in your HTML matches the target selector.
 Handles validation automatically and returns an object with the input values.
-

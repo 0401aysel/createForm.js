@@ -17,6 +17,7 @@
   "files": [
     "createForm.js",
     "style.css",
+    "README.md",
     "LICENSE"
   ],
   "keywords": [
