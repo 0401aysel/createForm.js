@@ -56,16 +56,16 @@ import CreateForm from './createForm.js';
     console.log("Form validation failed or API error", err);
   }
 })();
+```
 
-
-Features
+## Features
 Dynamic form generation
 Phone input with selectable prefix
 Email and text validation
 Returns a Promise with form data on successful submission
-Notes
 
+## Notes
 You can customize the fields array to add more inputs.
 Ensure the container ID in your HTML matches the target selector.
 Handles validation automatically and returns an object with the input values.
-```
+
