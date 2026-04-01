@@ -20,42 +20,31 @@ Usage
 
 For example, in main.js:
 
-import CreateForm from 'createForm-js';
+import CreateForm from 'createForm-js'
 
-(async () => {
-  try {
-    // Initialize the form
-    let formData = await CreateForm({
-      target: "#registerForm",
-      fields: [
-        { name: "name", label: "Name", type: "text", required: true },
-        { name: "surname", label: "Surname", type: "text", required: true },
-        { name: "email", label: "Email", type: "email", required: true },
-        {
-          name: "phone",
-          label: "Phone",
-          type: "phone",
-          prefix: "+994",
-          options: ["50", "51", "55", "70", "77"],
-          default: "51",
-          required: true
-        }
-      ]
-    });
+CreateForm({
+  target: "#registerForm",
+  fields: [
+    { name: "name", label: "Name", type: "text", required: true },
+    { name: "surname", label: "Surname", type: "text", required: true },
+    { name: "email", label: "Email", type: "email", required: true },
+    { name: "phone", label: "Phone", type: "phone", prefix: "+994", options: ["50", "51", "55", "70", "77"], default: "51", required: true }
+  ],
 
-    console.log("Form submitted successfully:", formData);
+  success: async (formData) => {
+    console.log("Form data:", formData);
 
-    // Example API call
     let response = await fetch('/api', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
     });
 
-  } catch (err) {
-    console.log("Form validation failed or API error", err);
+    if (response.ok) {
+      alert("Success");
+    }
   }
-})();
+});
 ```
 
 ## Features

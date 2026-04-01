@@ -69,38 +69,32 @@ export default function CreateForm(options = {}) {
       }
     }
   });
-  return new Promise((resolve, reject) => {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      let isFormValid = true;
-      let params = new URLSearchParams();
 
-      for (const field of fields) {
-        if (!validateField(field)) {
-          reject(false);
-          return;
-        }
-      };
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let isAllValid = true;
 
-      let formData = {};
-      fields.forEach(field => {
-        let value = form.querySelector(`#${field.name}`);
-        if (field.type === 'phone') {
-          let operator = form.querySelector(`#prefix-${field.name}`).value;
-          let digits = value.dataset.number || '';
-          formData[field.name] = field.prefix + operator + digits;
-        } else {
-          formData[field.name] = value.value.trim();
-        }
-      });
+    fields.forEach(field => {
+      if (!validateField(field)) isAllValid = false;
+    });
 
-      try {
-        resolve(formData);
-      } catch (err) {
-        reject(err);
+    let formData = {};
+    fields.forEach(field => {
+      let value = form.querySelector(`#${field.name}`);
+      if (field.type === 'phone') {
+        let operator = form.querySelector(`#prefix-${field.name}`).value;
+        let digits = value.dataset.number || '';
+        formData[field.name] = field.prefix + operator + digits;
+      } else {
+        formData[field.name] = value.value.trim();
       }
     });
+
+    if (options.success) {
+      options.success(formData);
+    }
   });
+
   function validateField(field) {
     let errorSpan = form.querySelector(`.${field.name}-error`);
     errorSpan.innerHTML = '';
