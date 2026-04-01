@@ -78,6 +78,11 @@ export default function CreateForm(options = {}) {
       if (!validateField(field)) isAllValid = false;
     });
 
+    if (!isAllValid) {
+      console.log('Error: Please enter valid data');
+      return
+    };
+
     let formData = {};
     fields.forEach(field => {
       let value = form.querySelector(`#${field.name}`);
