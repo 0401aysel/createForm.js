@@ -15,6 +15,7 @@
   "main": "createForm.js",
   "module": "createForm.js",
   "files": [
+    "dist",
     "createForm.js",
     "style.css",
     "README.md",
