@@ -1,21 +1,50 @@
-import './style.css'
+import '../style.css'
 
-export default function CreateForm(options = {}) {
+interface IOptionBase {
+  name: string;
+  label: string;
+  required? : boolean;
+}
+
+interface ITextOption extends IOptionBase{
+  type: 'text' | 'email';
+}
+
+interface IPhoneOption extends IOptionBase{
+  type: 'phone';
+  prefix: string;
+  options: string[];
+  default: string;
+}
+
+type TField = ITextOption | IPhoneOption;
+
+type FormData = Record<string, string>;
+
+interface IOptions{
+  target: string;
+  fields : TField[];
+  success? : (formData:FormData)=> void;
+}
+
+
+export default function CreateForm(options : IOptions
+) {
 
   let { target, fields = [] } = options;
-  let createNewForm = document.querySelector(target);
+  let createNewForm = document.querySelector(target) as HTMLElement;
 
   if (!createNewForm) {
     console.error("Target element not found");
     return;
   }
 
-  let form = document.createElement('form');
+  let form = document.createElement('form') as HTMLElement;
   form.className = 'registerForm-pack';
   createNewForm.appendChild(form);
 
   fields.forEach(field => {
-    let fieldDiv = document.createElement('div');
+    let fieldDiv = document.createElement('div') as HTMLElement;
     if (field.type == 'phone') {
       fieldDiv.className = 'phone-number';
       let options = field.options.map(option => `<option value="${option}" ${field.default == option ? "selected" : ''} >${option}</option>`);
@@ -47,7 +76,7 @@ export default function CreateForm(options = {}) {
 
   fields.forEach(field => {
     if (field.type === 'phone') {
-      let phoneValue = form.querySelector(`#${field.name}`);
+      let phoneValue = form.querySelector(`#${field.name}`) as HTMLInputElement;
       phoneValue.dataset.number = '';
 
       if (phoneValue) {
@@ -83,11 +112,12 @@ export default function CreateForm(options = {}) {
       return
     };
 
-    let formData = {};
+    let formData:FormData = {};
     fields.forEach(field => {
-      let value = form.querySelector(`#${field.name}`);
+      let value = form.querySelector(`#${field.name}`) as HTMLInputElement;
       if (field.type === 'phone') {
-        let operator = form.querySelector(`#prefix-${field.name}`).value;
+        let operatorElement = form.querySelector(`#prefix-${field.name}`) as HTMLSelectElement;
+        let operator = operatorElement.value;
         let digits = value.dataset.number || '';
         formData[field.name] = field.prefix + operator + digits;
       } else {
@@ -100,14 +130,16 @@ export default function CreateForm(options = {}) {
     }
   });
 
-  function validateField(field) {
-    let errorSpan = form.querySelector(`.${field.name}-error`);
+  function validateField(field: TField) {
+    let errorSpan = form.querySelector(`.${field.name}-error`) as HTMLElement;
     errorSpan.innerHTML = '';
-    let input = form.querySelector(`#${field.name}`);
+    const input = form.querySelector(`#${field.name}`) as HTMLInputElement | null;
+    if (!input) return false; 
     let value = input.value.trim();
 
     if (field.type === 'phone') {
-      let digits = form.querySelector(`#${field.name}`).dataset.number || '';
+      let digitsInput = form.querySelector(`#${field.name}`) as HTMLInputElement;
+      let digits = digitsInput.dataset.number || '';
       if (digits === '' || digits.length != 7) {
         errorSpan.innerHTML = `*please enter correct phone number`;
         return false;
