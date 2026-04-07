@@ -12,8 +12,8 @@
     "vite": "^8.0.1"
   },
   "description": "A lightweight JavaScript module to dynamically generate and validate forms, including text, email, and phone inputs with prefixes.",
-  "main": "createForm.js",
-  "module": "createForm.js",
+  "main": "dist/createForm.js",
+  "module": "dist/createForm.js",
   "files": [
     "dist",
     "createForm.js",
